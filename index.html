@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Sage & Alma Order Form</title>
+<link href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap' rel='stylesheet'>
+<style>
+:root{--sage:#7a8c6e;--cream:#f5efe0;--mauve:#c4a49b;--char:#2c2b27;--linen:#e8dfd0}
+body{font-family:Jost,sans-serif;background:var(--cream);color:var(--char);margin:0;padding:20px}
+.container{max-width:1100px;margin:auto}.card{background:#fff;padding:18px;border-radius:16px;margin:12px 0;border:1px solid var(--linen)}
+h1,h2{font-family:'Cormorant Garamond',serif;margin:0 0 10px;color:var(--char)}
+.header{text-align:center;background:linear-gradient(var(--cream),#fff)}
+.logo{max-width:280px;width:100%;border-radius:50%}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;box-sizing:border-box}
+.tableRow{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin:6px 0}
+button{background:var(--sage);color:white;border:none;padding:12px 16px;border-radius:10px;cursor:pointer;margin:4px}
+.total{font-size:1.6rem;font-weight:600;color:var(--sage)}
+#summary{white-space:pre-wrap;background:var(--linen);padding:15px;border-radius:10px;margin-top:10px}
+.small{font-size:.9rem;color:#666}
+@media print{button{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class='container'>
+<div class='card header'>
+<h1>Sage & Alma</h1>
+<p>Handcrafted with Soul</p>
+<p class='small'>Insert uploaded logo image at top of page when hosted locally.</p>
+</div>
+<div class='card'>
+<h2>Customer Information</h2>
+<div class='grid'>
+<input id='custName' placeholder='Full Name'>
+<input id='custPhone' placeholder='Phone Number'>
+<input id='custEmail' placeholder='Email Address'>
+</div>
+</div>
+<div class='card'>
+<h2>Fragrance Oils & Lotion Balms</h2>
+<label>Scent Selection(s)</label>
+<select id='fragScent' multiple size='8'>
+<option>Rose Vanilla Musk</option><option>Madame Dulce</option><option>Cheerful</option><option>Velvet Chai Noir</option><option>Golden Honey</option><option>Wild Flower</option><option>Sweet Island</option><option>Golden Skin</option><option>Island Nights</option><option>Resilient</option><option>Mystique</option><option>Eden</option><option>Strawberry Sweet</option><option>Brown Sugar Sweet</option><option>Strawberry Fields</option><option>Hibiscus Shadow</option></select>
+<div class='tableRow'><label>10mL Rollerball ($10)</label><input class='qty' data-name='10mL Rollerball' data-price='10' type='number' value='0'></div>
+<div class='tableRow'><label>3mL Rollerball ($5)</label><input class='qty' data-name='3mL Rollerball' data-price='5' type='number' value='0'></div>
+<div class='tableRow'><label>4oz Lotion Balm ($15)</label><input class='qty' data-name='4oz Lotion Balm' data-price='15' type='number' value='0'></div>
+<div class='tableRow'><label>2oz Lotion Balm ($7.50)</label><input class='qty' data-name='2oz Lotion Balm' data-price='7.5' type='number' value='0'></div>
+</div>
+<div class='card'>
+<h2>Velvet Petal Lip Conditioners</h2>
+<select id='lipScent' multiple size='7'><option>Amaretto</option><option>Black Cherry</option><option>Barvarian Cream</option><option>Vanilla Butternut</option><option>Caramel</option><option>Honey</option><option>Horchata</option><option>Marshmallow</option><option>Peach</option><option>Strawberry</option></select>
+<select id='lipColor' multiple size='6'><option>Natural (no color)</option><option>Cereza Oscura</option><option>Caramel Miel</option><option>Mauvable</option><option>Earthen</option><option>Bare (deep peach)</option></select>
+<div class='tableRow'><label>Tinted Tube ($8)</label><input class='qty' data-name='Tinted Lip Conditioner' data-price='8' type='number' value='0'></div>
+<div class='tableRow'><label>Untinted Tube ($5)</label><input class='qty' data-name='Untinted Lip Conditioner' data-price='5' type='number' value='0'></div>
+</div>
+<div class='card'>
+<h2>Wax Melts</h2>
+<label>Wax Melt Scents / Flight Builder</label>
+<select id='waxScent' multiple size='10'>
+<option>Mama's Breakfast Table</option><option>Abuela's Harvest Table</option><option>Panaderia Saturday's</option><option>Pecan Sunday</option><option>The Neighbor's Garden</option><option>Lavanda y Miel</option><option>Hibiscus Tea Hour</option><option>His Hug</option><option>Date Night Dusk</option><option>Sacred Quiet</option><option>Harvest Morning</option><option>The Midway</option><option>Spiced Harvest Pie</option><option>PCH Summer</option><option>Backyard Goldenhour</option><option>Orchid & Bay</option><option>Cherry Vanilla Slumber</option><option>Peach Blossom Morning</option><option>Cafe de Canela</option><option>La Tentacion</option><option>Tia's Hug</option><option>Sunday Bakery</option></select>
+<div class='tableRow'><label>2.5oz Clamshell ($5)</label><input class='qty' data-name='Wax Clamshell' data-price='5' type='number' value='0'></div>
+<div class='tableRow'><label>1oz Tester ($1.50)</label><input class='qty' data-name='1oz Tester' data-price='1.5' type='number' value='0'></div>
+<div class='tableRow'><label>Flight of 4 Testers ($5)</label><input class='qty' data-name='Flight of 4' data-price='5' type='number' value='0'></div>
+</div>
+<div class='card'>
+<div class='total'>Total: $<span id='total'>0.00</span></div>
+<p><strong>Payment Link:</strong> <a href='https://www.paypal.com/qrcodes/venmocs/45bb0ba3-537e-4b3f-8207-db23621ec159?created=1788487645' target='_blank'>Pay Here</a></p>
+<textarea id='notes' placeholder='Special requests, custom flight selections, gift notes...'></textarea><br>
+<button onclick='generateSummary()'>Generate Order Summary</button>
+<button onclick='copySummary()'>Copy Order For Text</button>
+<div id='summary'></div>
+</div></div>
+<script>
+function calc(){let t=0;document.querySelectorAll('.qty').forEach(q=>t+=(+q.value||0)*(+q.dataset.price));total.textContent=t.toFixed(2);}document.querySelectorAll('.qty').forEach(q=>q.addEventListener('input',calc));
+function selected(id){return [...document.getElementById(id).selectedOptions].map(o=>o.value).join(', ')}
+function generateSummary(){let items='';document.querySelectorAll('.qty').forEach(q=>{if(+q.value>0)items+=`${q.dataset.name}: ${q.value}\n`;});summary.textContent=`SAGE & ALMA ORDER\n\nCustomer: ${custName.value}\nPhone: ${custPhone.value}\nEmail: ${custEmail.value}\n\nItems:\n${items}\nFragrance/Lotion Scents: ${selected('fragScent')}\nLip Scents: ${selected('lipScent')}\nLip Colors: ${selected('lipColor')}\nWax/Flight Scents: ${selected('waxScent')}\n\nNotes: ${notes.value}\n\nTotal Due: $${total.textContent}\nPayment: https://www.paypal.com/qrcodes/venmocs/45bb0ba3-537e-4b3f-8207-db23621ec159?created=1788487645`;}
+function copySummary(){generateSummary();navigator.clipboard.writeText(summary.textContent);alert('Order copied.');}
+</script></body></html>
