@@ -1,53 +1,487 @@
-<index.html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Order Form</title>
+
+<title>Sage & Alma Order Form</title>
+
 <style>
-body{font-family:Arial,sans-serif;background:#f5efe0;margin:0;padding:12px;color:#2c2b27}
-.container{max-width:1100px;margin:auto}
-.card{background:#fff;border-radius:14px;padding:16px;margin-bottom:14px}
-.header{text-align:center}.logo{max-width:320px;width:100%;height:auto}
-h1{margin:10px 0}
-.row{display:grid;grid-template-columns:2fr 2fr 1fr auto;gap:8px;margin:8px 0}
-input,select,textarea,button{padding:10px;border-radius:8px;border:1px solid #ccc;box-sizing:border-box}
-button{cursor:pointer;background:#7a8c6e;color:#fff}
-.addBtn{margin-top:8px}.removeBtn{background:#a55}.total{font-size:1.5rem;font-weight:bold}
-@media(max-width:768px){.row{grid-template-columns:1fr}.logo{max-width:220px}button{width:100%}}
+:root{
+--sage:#7A8C75;
+--rose:#D4A58A;
+--cream:#f7f3ee;
+--text:#1C1612;
+--border:#ddd;
+}
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:var(--cream);
+color:var(--text);
+padding:15px;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+}
+
+.card{
+background:white;
+border-radius:16px;
+padding:18px;
+margin-bottom:16px;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.header{
+text-align:center;
+}
+
+.logo{
+width:100%;
+max-width:900px;
+height:auto;
+}
+
+h1,h2,h3{
+margin-top:0;
+}
+
+.row{
+display:grid;
+grid-template-columns:2fr 2fr 1fr auto;
+gap:10px;
+margin-bottom:10px;
+align-items:center;
+}
+
+.row.lip{
+grid-template-columns:2fr 2fr 2fr 1fr auto;
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:10px;
+border:1px solid var(--border);
+border-radius:8px;
+}
+
+button{
+background:var(--sage);
+color:white;
+border:none;
+padding:10px 14px;
+border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+opacity:.9;
+}
+
+.removeBtn{
+background:#b24848;
+}
+
+.summary{
+white-space:pre-wrap;
+background:#f5f5f5;
+padding:12px;
+border-radius:10px;
+margin-top:12px;
+}
+
+.total{
+font-size:1.5rem;
+font-weight:bold;
+color:var(--sage);
+}
+
+.addBtn{
+margin-top:10px;
+}
+
+.payLink{
+font-weight:bold;
+font-size:1.1rem;
+}
+
+@media (max-width:768px){
+
+.row,
+.row.lip{
+grid-template-columns:1fr;
+}
+
+button{
+width:100%;
+}
+
+.logo{
+max-width:100%;
+}
+}
 </style>
 </head>
 <body>
+
 <div class="container">
+
 <div class="card header">
-<img src="logo.file.png" class="logo" alt="Logo">
+<img src="logo.file.png" alt="Sage & Alma Logo" class="logo">
 <h1>Order Form</h1>
 </div>
+
 <div class="card">
 <h2>Customer Information</h2>
+
 <input id="custName" placeholder="Full Name"><br><br>
+
 <input id="custPhone" placeholder="Phone Number"><br><br>
+
 <input id="custEmail" placeholder="Email Address">
 </div>
-<div class="card"><h2>Fragrance Oils & Lotion Balms</h2><div id="fragRows"></div><button type="button" class="addBtn" onclick="addFragranceRow()">+ Add Fragrance Item</button></div>
-<div class="card"><h2>Velvet Boca Lip Conditioners</h2><div id="lipRows"></div><button type="button" class="addBtn" onclick="addLipRow()">+ Add Velvet Boca Item</button></div>
-<div class="card"><h2>Wax Melts</h2><div id="waxRows"></div><button type="button" class="addBtn" onclick="addWaxRow()">+ Add Wax Melt Item</button></div>
-<div class="card"><div class="total">Total: $<span id="total">0.00</span></div><p><a href="https://www.paypal.com/qrcodes/venmocs/45bb0ba3-537e-4b3f-8207-db23621ec159?created=1788487645" target="_blank">Pay Here</a></p><textarea id="notes" placeholder="Notes"></textarea><br><br><button onclick="generateSummary()">Generate Order Summary</button><pre id="summary"></pre></div>
+
+ <div class="card">
+
+<h2>Fragrance Oils & Lotion Balms</h2>
+
+<div id="fragranceRows"></div>
+
+<button class="addBtn" onclick="addFragranceRow()">
++ Add Fragrance Item
+</button>
+
 </div>
+
+<div class="card">
+
+<h2>Velvet Boca Lip Conditioners</h2>
+
+<div id="lipRows"></div>
+
+<button class="addBtn" onclick="addLipRow()">
++ Add Velvet Boca Item
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>Wax Melts</h2>
+
+<div id="waxRows"></div>
+
+<button class="addBtn" onclick="addWaxRow()">
++ Add Wax Melt Item
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="total">
+Total: $<span id="total">0.00</span>
+</div>
+
+<br>
+
+<p class="payLink">
+Payment:
+<a
+href="https://www.paypal.com/qrcodes/venmocs/45bb0ba3-537e-4b3f-8207-db23621ec159?created=1788487645"
+target="_blank"
+rel="noopener noreferrer">
+Pay Here
+</a>
+</p>
+
+<textarea
+id="notes"
+rows="5"
+placeholder="Special requests, gift notes, custom flights, etc.">
+</textarea>
+
+<br><br>
+
+<button onclick="generateSummary()">
+Generate Order Summary
+</button>
+
+<button onclick="copySummary()">
+Copy Summary
+</button>
+
+<div id="summary" class="summary"></div>
+
+</div>
+
 <script>
-const fragScents=['Rose Vanilla Musk','Madame Dulce','Cheerful','Velvet Chai Noir','Golden Honey','Wild Flower','Sweet Island','Golden Skin','Island Nights','Resilient','Mystique','Eden'];
-const lipFlavors=['No Flavor','Amaretto','Black Cherry','Barvarian Cream','Vanilla Butternut','Caramel','Honey','Horchata','Marshmallow','Peach','Strawberry'];
-const lipTints=['Natural (no tint)','Cereza Oscura (deep red)','Caramel Miel (honey brown)','Mauvable (rich mauve)','Earthen (terracotta)','Bare (deep peach)'];
-const waxScents=['Mama's Breakfast Table','Abuela's Harvest Table','Lavanda y Miel','Hibiscus Tea Hour','Sacred Quiet','Sunday Bakery'];
-function opts(arr){return arr.map(x=>`<option>${x}</option>`).join('');}
-function addFragranceRow(){document.getElementById('fragRows').insertAdjacentHTML('beforeend',`<div class=row><select class=scent>${opts(fragScents)}</select><select class=price onchange=calc()><option value=10>10mL Rollerball $10</option><option value=5>3mL Rollerball $5</option><option value=15>4oz Lotion Balm $15</option><option value=7.5>2oz Lotion Balm $7.50</option></select><input class=qty type=number value=1 min=1 oninput=calc()><button type=button class=removeBtn onclick='this.parentElement.remove();calc()'>Remove</button></div>`);calc();}
-function addLipRow(){document.getElementById('lipRows').insertAdjacentHTML('beforeend',`<div class=row><select class=flavor>${opts(lipFlavors)}</select><select class=tint>${opts(lipTints)}</select><select class=price onchange=calc()><option value=8>Tinted Tube $8</option><option value=5>Untinted Tube $5</option></select><input class=qty type=number value=1 min=1 oninput=calc()><button type=button class=removeBtn onclick='this.parentElement.remove();calc()'>Remove</button></div>`);calc();}
-function addWaxRow(){document.getElementById('waxRows').insertAdjacentHTML('beforeend',`<div class=row><select class=scent>${opts(waxScents)}</select><select class=price onchange=calc()><option value=5>2.5oz Clamshell $5</option><option value=1.5>1oz Tester $1.50</option><option value=5>Flight of 4 Testers $5</option></select><input class=qty type=number value=1 min=1 oninput=calc()><button type=button class=removeBtn onclick='this.parentElement.remove();calc()'>Remove</button></div>`);calc();}
-function calc(){let t=0;document.querySelectorAll('.row').forEach(r=>{t+=(+r.querySelector('.price').value)*(+r.querySelector('.qty').value||0)});document.getElementById('total').textContent=t.toFixed(2)}
-function generateSummary(){document.getElementById('summary').textContent='Customer: '+custName.value+'
-Phone: '+custPhone.value+'
-Email: '+custEmail.value+'
-Total: $'+document.getElementById('total').textContent+'
-Notes: '+notes.value;}
-addFragranceRow();addLipRow();addWaxRow();
-</script></body></html>
+
+const fragranceScents = [
+"Brown Sugar Sweet",
+"Cheerful",
+"Eden",
+"Golden Honey",
+"Golden Skin",
+"Hibiscus Shadow",
+"Island Nights",
+"Madame Dulce",
+"Mystique",
+"Resilient",
+"Rose Vanilla Musk",
+"Strawberry Fields",
+"Strawberry Sweet",
+"Sweet Island",
+"Velvet Chai Noir",
+"Wild Flower"
+];
+
+const lipFlavors = [
+"No Flavor",
+"Amaretto",
+"Black Cherry",
+"Bavarian Cream",
+"Vanilla Butternut",
+"Caramel",
+"Honey",
+"Horchata",
+"Marshmallow",
+"Peach",
+"Strawberry"
+];
+
+const lipTints = [
+"Natural (no tint)",
+"Bare (deep peach)",
+"Cereza Oscura (deep red)",
+"Caramel Miel (honey brown)",
+"Mauvable (rich mauve)",
+"Earthen (terracotta)"
+];
+
+const waxScents = [
+"Mama Breakfast Table",
+"Abuela Harvest Table",
+"Panaderia Saturdays",
+"Pecan Sunday",
+"The Neighbor Garden",
+"Lavanda y Miel",
+"Hibiscus Tea Hour",
+"His Hug",
+"Date Night Dusk",
+"Sacred Quiet",
+"Harvest Morning",
+"The Midway",
+"Spiced Harvest Pie",
+"PCH Summer",
+"Backyard Goldenhour",
+"Orchid & Bay",
+"Cherry Vanilla Slumber",
+"Peach Blossom Morning",
+"Cafe de Canela",
+"La Tentacion",
+"Tia Hug",
+"Sunday Bakery"
+];
+
+function buildOptions(list){
+return list.map(s => `<option>${s}</option>`).join('');
+}
+
+function addFragranceRow(){
+
+document.getElementById('fragranceRows').insertAdjacentHTML(
+'beforeend',
+
+`<div class="row orderRow">
+
+<select class="itemName">
+${buildOptions(fragranceScents)}
+</select>
+
+<select class="itemSize itemPrice" onchange="calcTotal()">
+<option value="10">10mL Rollerball - $10</option>
+<option value="5">3mL Rollerball - $5</option>
+<option value="15">4oz Lotion Balm - $15</option>
+<option value="7.5">2oz Lotion Balm - $7.50</option>
+</select>
+
+<input type="number"
+class="qty"
+value="1"
+min="1"
+oninput="calcTotal()">
+
+<button
+type="button"
+class="removeBtn"
+onclick="removeRow(this)">
+Remove
+</button>
+
+</div>`);
+
+calcTotal();
+}
+
+function addLipRow(){
+
+document.getElementById('lipRows').insertAdjacentHTML(
+'beforeend',
+
+`<div class="row lip orderRow">
+
+<select class="flavor">
+${buildOptions(lipFlavors)}
+</select>
+
+<select class="tint">
+${buildOptions(lipTints)}
+</select>
+
+<select class="itemSize itemPrice" onchange="calcTotal()">
+<option value="8">Tinted Tube - $8</option>
+<option value="5">Untinted Tube - $5</option>
+</select>
+
+<input
+type="number"
+class="qty"
+value="1"
+min="1"
+oninput="calcTotal()">
+
+<button
+type="button"
+class="removeBtn"
+onclick="removeRow(this)">
+Remove
+</button>
+
+</div>`);
+calcTotal();
+}
+
+function addWaxRow(){
+
+document.getElementById('waxRows').insertAdjacentHTML(
+'beforeend',
+
+`<div class="row orderRow">
+
+<select class="itemName">
+${buildOptions(waxScents)}
+</select>
+
+<select class="itemSize itemPrice" onchange="calcTotal()">
+<option value="5">2.5oz Clamshell - $5</option>
+<option value="1.5">1oz Tester - $1.50</option>
+<option value="5">Flight of 4 Testers - $5</option>
+</select>
+
+<input
+type="number"
+class="qty"
+value="1"
+min="1"
+oninput="calcTotal()">
+
+<button
+type="button"
+class="removeBtn"
+onclick="removeRow(this)">
+Remove
+</button>
+
+</div>`);
+
+calcTotal();
+}
+
+function removeRow(btn){
+btn.parentElement.remove();
+calcTotal();
+}
+
+function calcTotal(){
+
+let total = 0;
+
+document.querySelectorAll('.orderRow').forEach(row=>{
+
+const price =
+parseFloat(
+row.querySelector('.itemPrice').value
+);
+
+const qty =
+parseInt(
+row.querySelector('.qty').value
+) || 0;
+
+total += price * qty;
+
+});
+
+document.getElementById('total').textContent =
+total.toFixed(2);
+
+}
+
+function generateSummary(){
+
+let output = '';
+
+output += 'SAGE & ALMA ORDER\\n\\n';
+
+output += 'Customer: ' +
+document.getElementById('custName').value +
+'\\n';
+
+output += 'Phone: ' +
+document.getElementById('custPhone').value +
+'\\n';
+
+output += 'Email: ' +
+document.getElementById('custEmail').value +
+'\\n\\n';
+
+output += 'TOTAL: $' +
+document.getElementById('total').textContent +
+'\\n\\n';
+
+output += 'Notes:\\n' +
+document.getElementById('notes').value;
+
+document.getElementById('summary').textContent =
+output;
+}
+
+function copySummary(){
+generateSummary();
+
+navigator.clipboard.writeText(
+document.getElementById('summary').textContent
+);
+
+alert('Order copied!');
+}
+
+addFragranceRow();
+addLipRow();
+addWaxRow();
+
+</script>
+
+</body>
+</html>
