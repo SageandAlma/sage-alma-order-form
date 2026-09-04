@@ -189,6 +189,8 @@ max-width:100%;
 
 <div class="card">
 
+https://formsubmit.co/sageandalma@gmail.com
+
 <div class="total">
 Total: $<span id="total">0.00</span>
 </div>
@@ -211,17 +213,43 @@ rows="5"
 placeholder="Special requests, gift notes, custom flights, etc.">
 </textarea>
 
+<input
+type="hidden"
+name="_subject"
+value="New Sage & Alma Order">
+
+<input
+type="hidden"
+name="_captcha"
+value="false">
+
+<input
+type="hidden"
+name="_next"
+value="https://sageandalma.github.io/sage-alma-order-form/">
+
+<input
+type="hidden"
+id="emailSummary"
+name="Order Summary">
+
 <br><br>
 
-<button onclick="generateSummary()">
+<button type="button" onclick="generateSummary()">
 Generate Order Summary
 </button>
 
-<button onclick="copySummary()">
+<button type="button" onclick="copySummary()">
 Copy Summary
 </button>
 
+<button type="button" onclick="submitOrder()">
+Submit Order
+</button>
+
 <div id="summary" class="summary"></div>
+
+</form>
 
 </div>
 
@@ -293,6 +321,8 @@ const waxScents = [
 "Tia Hug",
 "Sunday Bakery"
 ];
+let orderNumber =
+'SNA-' + Math.floor(Date.now()/1000);
 
 function buildOptions(list){
 return list.map(s => `<option>${s}</option>`).join('');
@@ -442,32 +472,111 @@ function generateSummary(){
 
 let output = '';
 
-output += 'SAGE & ALMA ORDER\\n\\n';
+output += 'SAGE & ALMA ORDER\n';
+output += '====================\n\n';
 
-output += 'Customer: ' +
+output += 'ORDER NUMBER: ' +
+orderNumber +
+'\n\n';
+
+output += 'CUSTOMER INFORMATION\n';
+
+output += 'Name: ' +
 document.getElementById('custName').value +
-'\\n';
+'\n';
 
 output += 'Phone: ' +
 document.getElementById('custPhone').value +
-'\\n';
+'\n';
 
 output += 'Email: ' +
 document.getElementById('custEmail').value +
-'\\n\\n';
+'\n\n';
 
-output += 'TOTAL: $' +
-document.getElementById('total').textContent +
-'\\n\\n';
+output += 'ITEMIZED ORDER\n';
+output += '====================\n\n';
 
-output += 'Notes:\\n' +
-document.getElementById('notes').value;
+document
+.querySelectorAll('#fragranceRows .orderRow')
+.forEach(row=>{
 
-document.getElementById('summary').textContent =
-output;
+const scent =
+row.querySelector('.itemName').value;
+
+const size =
+row.querySelector('.itemSize').selectedOptions[0].text;
+
+const qty =
+parseInt(row.querySelector('.qty').value) || 0;
+
+const price =
+parseFloat(row.querySelector('.itemPrice').value);
+
+if(qty > 0){
+
+output +=
+'FRAGRANCE / BALM\n' +
+'Scent: ' + scent + '\n' +
+'Size: ' + size + '\n' +
+'Quantity: ' + qty + '\n' +
+'Line Total: $' + (qty * price).toFixed(2) +
+'\n\n';
+
 }
 
-function copySummary(){
+});
+
+document
+.querySelectorAll('#lipRows .orderRow')
+.forEach(row=>{
+
+const flavor =
+row.querySelector('.flavor').value;
+
+const tint =
+row.querySelector('.tint').value;
+
+const size =
+row.querySelector('.itemSize').selectedOptions[0].text;
+
+const qty =
+parseInt(row.querySelector('.qty').value) || 0;
+
+const price =
+parseFloat(row.querySelector('.itemPrice').value);
+
+if(qty > 0){
+
+output +=
+'VELVET BOCA\n' +
+'Flavor: ' + flavor + '\n' +
+'Tint: ' + tint + '\n' +
+'Size: ' + size + '\n' +
+'Quantity: ' + qty + '\n' +
+'Line Total: $' + (qty * price).toFixed(2) +
+'\n\n';
+
+}
+
+});
+
+document
+.querySelectorAll('#waxRows .orderRow')
+.forEach(row=>{
+
+const scent =
+row.querySelector('
+
+function copySummary()
+function submitOrder(){
+
+generateSummary();
+
+document
+.getElementById('orderForm')
+.submit();
+
+}
 generateSummary();
 
 navigator.clipboard.writeText(
